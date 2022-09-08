@@ -126,6 +126,7 @@
                             </ul>
                         </ul>
                     </li>
+                    <button class="btn btn-danger" @click="logout">Logout</button>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic"
                            href="#"
@@ -165,3 +166,26 @@
         </nav>
     </header>
 </template>
+<script>
+import {logout} from '../../helpers/auth';
+import Cookies from 'js-cookie';
+export default {
+    methods: {
+        logout() {
+            logout()
+                .then(res => {
+                    // Cookies.set('XSRF-TOKEN','')
+                    // Cookies.set('laravel_session','')
+                    // document.cookie = 'XSRF-TOKEN' +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                    // document.cookie = 'laravel_session' +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                    this.$store.commit("LOGOUT");
+                    this.$router.push({path: '/login'});
+                })
+                .catch(err => {
+                    this.$store.commit("LOGIN_FAILED", {err})
+                    this.errors = err
+                })
+        },
+    },
+}
+</script>

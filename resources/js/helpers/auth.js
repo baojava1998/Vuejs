@@ -10,6 +10,18 @@ export function login(credential) {
     })
 }
 
+export function logout() {
+    return new Promise((res, rej) => {
+        axios.post('logout')
+            .then(result => {
+                res(result.data);
+            })
+            .catch(err => {
+                rej(err.response.data.errors);
+            })
+    })
+}
+
 export function register(credential) {
     return new Promise((res, rej) => {
         axios.post('/register', credential)

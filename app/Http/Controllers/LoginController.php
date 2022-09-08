@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginControllerRequest;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -42,5 +43,10 @@ class LoginController extends Controller
     public function info()
     {
         return Auth::user()->tokens;
+    }
+
+    public function logout(Request $request)
+    {
+        $request->user()->tokens()->delete();
     }
 }

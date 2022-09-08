@@ -29,7 +29,9 @@
                         </tbody>
                     </table>
                     <paginate class="justify-content-end"
+                              v-model="page"
                               :page="1"
+                              :force-page="paginate.current_page"
                               :page-count="paginate.last_page"
                               :page-range="3"
                               :margin-pages="2"
@@ -54,18 +56,18 @@ export default {
         return {
             products: {},
             detail: [],
+            page: this.$route.query.page || 1,
             paginate:{
                 'last_page': 1,
                 'per_page': 1,
-                'page': 1,
-                'current_page': 1
+                'page': this.$route.query.page || 1,
+                'current_page': this.$route.query.current_page || 1
             },
         }
     },
     props: ['data'],
     mounted(){
         this.listProduct();
-        this.clickCallback();
     },
     methods: {
         deleteProduct(id) {
@@ -86,9 +88,10 @@ export default {
         },
         async listProduct() {
             await axios
-                .get('products/')
+                .get('products?page=' + this.$route.query.page)
                 .then(response => {
                     this.products = response.data.data;
+                    this.paginate = response.data.paginate;
                 });
         },
         async clickCallback(pageNum = 1) {
@@ -96,8 +99,15 @@ export default {
                 .then(response => {
                     this.products = response.data.data;
                     this.paginate = response.data.paginate;
+                    this.$router.push({path: this.$route.path, query: {
+                        page: this.paginate.current_page
+                    }})
                 });
+            // return {
+            //     path: this.$route.path,
+            //     query: { ...this.$route.query, currentPage: pageNum }
+            // }
         },
-    }
+    },
 }
 </script>

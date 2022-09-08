@@ -16,7 +16,6 @@ import Login from './layout/Login';
 import Paginate from 'vuejs-paginate'
 import store from './store/index';
 import { initialize } from "./helpers/general";
-// import './axios'
 
 Vue.component('paginate', Paginate)
 Vue.component('default-layout', Default);

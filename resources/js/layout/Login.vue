@@ -123,7 +123,7 @@ export default {
             login(this.$data.loginData)
                 .then(res => {
                     this.$store.commit("LOGIN_SUCCESS", res);
-                    this.$router.push({path: '/'});
+                    this.$router.push({name: 'home'});
                 })
                 .catch(err => {
                     this.$store.commit("LOGIN_FAILED", {err})

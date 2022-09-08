@@ -5,17 +5,17 @@ import EditProduct from './components/product/EditProduct.vue';
 export const routes = [
     {
         name: 'home',
-        path: '/',
+        path: '/product',
         component: AllProduct
     },
     {
         name: 'create',
-        path: '/create',
+        path: '/product/create',
         component: CreateProduct
     },
     {
         name: 'edit',
-        path: '/edit/:id',
+        path: '/product/edit/:id',
         component: EditProduct
     },
     {

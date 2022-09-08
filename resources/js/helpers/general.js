@@ -6,7 +6,7 @@ export function initialize(store, router) {
         if ( requiresAuth && !currentUser) {
             next('/login');
         } else if (to.path === '/login' && currentUser) {
-            next('/');
+            next({name: 'home'});
         } else {
             next();
         }
@@ -25,5 +25,8 @@ export function initialize(store, router) {
 
     if (store.getters.CURRENT_USER) {
         axios.defaults.headers.common['Authorization'] = `Bearer ${store.getters.CURRENT_USER.token}`;
+    } else {
+        store.commit('LOGOUT');
+        router.push('/login');
     }
 }

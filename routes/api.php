@@ -9,6 +9,7 @@ use App\Http\Controllers\LoginController;
 */
 Route::middleware('api')->group(function () {
     Route::post('login', [LoginController::class,'login']);
+    Route::post('logout', [LoginController::class,'logout']);
 
     Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('info', [LoginController::class,'info']);
