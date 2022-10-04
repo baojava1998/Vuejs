@@ -47,9 +47,13 @@
                 </div>
             </div>
         </div>
+        <div v-for="(message, index) in messages" :key="index">
+            {{ message.type }} : {{ message.message }}
+        </div>
+        <input type="text" v-model="text">
+        <button @click="sendMessage">Send</button>
     </div>
 </template>
-
 <script>
 export default {
     data() {
@@ -63,13 +67,39 @@ export default {
                 'page': this.$route.query.page || 1,
                 'current_page': this.$route.query.current_page || 1
             },
+            text: '',
+            messages: [],
         }
+    },
+    sockets: {
+        statusRoom: function (message) {
+            this.messages.push({
+                message,
+                type: 'status',
+            })
+        },
+        receiveMessage: function (message) { //nhận tín nhắn từ ng khác trong phòng, push tin nhắn vào mảng ban đầu
+            this.messages.push({
+                message,
+                type: 'receive',
+            })
+        },
     },
     props: ['data'],
     mounted(){
         this.listProduct();
     },
     methods: {
+        sendMessage() {
+            if(this.text !== '') {
+                this.$socket.emit('sendMessage', this.text) // emit lên server
+                this.messages.push({
+                    message: this.text,
+                    type: 'send',
+                })
+            }
+            this.text = ''
+        },
         deleteProduct(id) {
             this.axios
                 .delete(`products/${id}`)

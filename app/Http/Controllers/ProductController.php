@@ -9,7 +9,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::paginate(5);
+        $products = Product::latest()->paginate(5);
         return new ProductCollection($products);
     }
     public function store(ProductRequest $request)

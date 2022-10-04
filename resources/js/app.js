@@ -16,7 +16,9 @@ import Login from './layout/Login';
 import Paginate from 'vuejs-paginate'
 import store from './store/index';
 import { initialize } from "./helpers/general";
+import VueSocketIO from 'vue-socket.io'
 
+Vue.config.productionTip = false
 Vue.component('paginate', Paginate)
 Vue.component('default-layout', Default);
 Vue.component('login-layout', Login);
@@ -30,7 +32,10 @@ window.Vue = Vue
  */
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
-
+Vue.use(new VueSocketIO({
+    debug: true,
+    connection: 'http://localhost:3000',
+}))
 const router = new VueRouter({
     mode: 'history',
     routes: routes

@@ -25,9 +25,14 @@
         "webpack-cli": "^4.10.0"
     },
     "dependencies": {
+        "express": "^4.15.4",
         "firebase": "^9.9.3",
+        "js-cookie": "^3.0.1",
+        "request": "^2.81.0",
+        "socket.io": "^2.0.4",
         "vue-axios": "^3.4.1",
         "vue-router": "^3.5.4",
+        "vue-socket.io": "^3.0.10",
         "vuejs-paginate": "^2.1.0",
         "vuex": "^2.5.0"
     }
